@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,6 +66,24 @@ nav a:hover{color:var(--gold-soft)}
 #orders .panel{background:var(--black);border-top:3px solid var(--wood)}
 .cta-row{margin-top:26px}
 
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:26px}
+.gal:empty{display:none}
+.gal figure{margin:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--black)}
+.gal img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.gal figcaption{padding:8px 10px;font-size:14px;color:var(--muted)}
+
+.split{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:30px;align-items:start}
+.split>img{width:100%;border-radius:6px;border:1px solid var(--line)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.tab{background:none;border:1px solid var(--line);color:var(--muted);padding:8px 18px;border-radius:30px;font:inherit;cursor:pointer}
+.tab.on{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.gal figure{cursor:zoom-in}
+.empty{color:var(--muted)}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:90vh;border-radius:4px}
+#process{border-top:1px solid var(--line)}
 /* process */
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px;counter-reset:s;list-style:none}
 .steps li{counter-increment:s;padding-top:14px;border-top:1px solid var(--line)}
@@ -90,7 +107,7 @@ footer{padding:26px 0;text-align:center;color:var(--muted);font-size:14px;border
 
 @media(max-width:800px){
   nav{display:none}
-  .hero .wrap,.contact{grid-template-columns:1fr}
+  .hero .wrap,.contact,.split{grid-template-columns:1fr}
   .hero img{max-width:260px;order:-1}
   section{padding:56px 0}
 }
@@ -105,6 +122,7 @@ footer{padding:26px 0;text-align:center;color:var(--muted);font-size:14px;border
     <nav>
       <a href="#polish">Furniture Polish</a>
       <a href="#orders">Custom Furniture</a>
+      <a href="#work">Our Work</a>
       <a href="#process">How it works</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -133,16 +151,19 @@ footer{padding:26px 0;text-align:center;color:var(--muted);font-size:14px;border
       <h2>Furniture Polish</h2>
       <p>Is your furniture dull, scratched or faded? Send us a photo and we will tell you what it needs.</p>
     </div>
-    <div class="panel">
-      <h3>Polish and repair services</h3>
-      <p>For wooden furniture you already own.</p>
-      <div class="items">
-        <div class="item"><b>Wood polish</b><span>Melamine, PU and lacquer finishes for tables, beds and cupboards.</span></div>
-        <div class="item"><b>Door and window polish</b><span>Fresh finish for main doors, wardrobes and frames.</span></div>
-        <div class="item"><b>Old furniture renewal</b><span>Remove old coating, fix scratches and re-finish.</span></div>
-        <div class="item"><b>Sofa and chair touch-up</b><span>Wooden frame and arm polish for sofas and chairs.</span></div>
+    <div class="split">
+      <img src="polish.jpg" alt="Bhopal Furnished furniture polish services" loading="lazy">
+      <div class="panel">
+        <h3>Polish and repair services</h3>
+        <p>For wooden furniture you already own.</p>
+        <div class="items">
+          <div class="item"><b>Wood polish</b><span>Melamine, PU and lacquer finishes for tables, beds and cupboards.</span></div>
+          <div class="item"><b>Door and window polish</b><span>Fresh finish for main doors, wardrobes and frames.</span></div>
+          <div class="item"><b>Old furniture renewal</b><span>Remove old coating, fix scratches and re-finish.</span></div>
+          <div class="item"><b>Sofa and chair touch-up</b><span>Wooden frame and arm polish for sofas and chairs.</span></div>
+        </div>
+        <div class="cta-row"><a class="btn fill" href="#contact" data-service="Furniture Polish">Ask for polish quote</a></div>
       </div>
-      <div class="cta-row"><a class="btn fill" href="#contact" data-service="Furniture Polish">Ask for polish quote</a></div>
     </div>
   </div>
 </section>
@@ -164,6 +185,22 @@ footer{padding:26px 0;text-align:center;color:var(--muted);font-size:14px;border
       </div>
       <div class="cta-row"><a class="btn fill" href="#contact" data-service="Custom Furniture Order">Place an order</a></div>
     </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="head">
+      <h2>Our Work</h2>
+      <p>Furniture we have made and polished in Bhopal. Tap a photo to see it bigger.</p>
+    </div>
+    <div class="tabs">
+      <button class="tab on" type="button" data-f="all">All</button>
+      <button class="tab" type="button" data-f="orders">Custom Furniture</button>
+      <button class="tab" type="button" data-f="polish">Furniture Polish</button>
+    </div>
+    <div class="gal" id="gal"></div>
+    <p class="empty" id="empty">New photos coming soon. Call 9696436384 to see our latest work.</p>
   </div>
 </section>
 
@@ -213,10 +250,32 @@ footer{padding:26px 0;text-align:center;color:var(--muted);font-size:14px;border
 </main>
 
 <footer>© <span id="y"></span> Bhopal Furnished. Furniture maker, Bhopal.</footer>
+<div id="lb"><img alt=""></div>
 <a class="wa" href="https://wa.me/919696436384" target="_blank" rel="noopener">WhatsApp</a>
 
 <script>
 document.getElementById('y').textContent=new Date().getFullYear();
+var photos=[],cur='all',gal=document.getElementById('gal'),emp=document.getElementById('empty'),lb=document.getElementById('lb');
+function draw(){
+  gal.innerHTML='';var n=0;
+  photos.forEach(function(p){
+    if(cur!=='all'&&p.cat!==cur)return;n++;
+    var f=document.createElement('figure'),i=document.createElement('img');
+    i.src=p.file;i.alt=p.title||'Bhopal Furnished work';i.loading='lazy';f.appendChild(i);
+    if(p.title){var c=document.createElement('figcaption');c.textContent=p.title;f.appendChild(c);}
+    f.addEventListener('click',function(){lb.firstElementChild.src=p.file;lb.classList.add('on');});
+    gal.appendChild(f);
+  });
+  emp.style.display=n?'none':'block';
+}
+lb.addEventListener('click',function(){lb.classList.remove('on');});
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+    t.classList.add('on');cur=t.dataset.f;draw();
+  });
+});
+fetch('gallery.json?v='+Date.now()).then(function(r){return r.ok?r.json():[]}).then(function(l){photos=l;draw();}).catch(draw);
 document.querySelectorAll('[data-service]').forEach(function(a){
   a.addEventListener('click',function(){document.getElementById('s').value=a.dataset.service;});
 });
